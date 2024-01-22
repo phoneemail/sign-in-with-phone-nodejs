@@ -1,0 +1,25 @@
+* {
+    padding: 0px;
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+.sign-in-container {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-in-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #02BD7E;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: inherit;
+    cursor: pointer;
+}
