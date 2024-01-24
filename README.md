@@ -48,7 +48,8 @@ Before you begin, make sure you have the following installed on your machine:
     npm install
     ```
 
-4. Replace your account related information 
+4. Replace your account related information
+   
     open .env file and replace your COUNTRY_CODE, PHONE_NO, REDIRECT_URL & API_KEY with your registered account details.
      
 
