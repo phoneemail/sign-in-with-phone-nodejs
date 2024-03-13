@@ -10,7 +10,6 @@ Welcome to the Sign-in with Phone Demo App! This Node.js application showcases a
   - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
