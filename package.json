@@ -1,5 +1,5 @@
 {
-  "name": "upwork.nodejs",
+  "name": "phoneemail.nodejs",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -7,7 +7,7 @@
     "start": "node src/index.js"
   },
   "keywords": [],
-  "author": "coder-kabir",
+  "author": "phone-email",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.9",
