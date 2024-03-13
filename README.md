@@ -50,7 +50,7 @@ Before you begin, make sure you have the following installed on your machine:
 
 4. Replace your account related information
    
-    open .env file and replace your COUNTRY_CODE, PHONE_NO, REDIRECT_URL & API_KEY with your registered account details.
+    replace your CLIENT_ID & REDIRECT_URL with your registered account details.
      
 
 ## Usage
@@ -71,9 +71,7 @@ For detailed documentation on integrating the "Login with Phone" button into you
 
 Feel free to contribute to the documentation if you have improvements or additional information to share.
 
-## Contributing
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please create an issue or submit a pull request. 
 
 ## License
 
