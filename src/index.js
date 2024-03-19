@@ -8,11 +8,6 @@ const app = express();
 // Set the port for the server
 const port = 3000;
 
-// Constants for OAuth2 authentication
-const CLIENT_ID = "YOUR_CLIENT_ID";
-const REDIRECT_URL = "http://localhost:3000";   //YOUR_REDIRECT_URL
-const AUTH_URL = `https://auth.phone.email/log-in?client_id=${CLIENT_ID}&redirect_url=${REDIRECT_URL}`;
-
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -24,6 +19,11 @@ app.set("views", path.join(__dirname, "views"));
 // Define a route for the home page
 app.get("/", async function (req, res) {
   try {
+    
+    const CLIENT_ID = "YOUR_CLIENT_ID";
+    const REDIRECT_URL = req.protocol + "://" + req.get("host") + req.originalUrl;
+    const AUTH_URL = `https://auth.phone.email/log-in?client_id=${CLIENT_ID}&redirect_url=${REDIRECT_URL}`;
+
     // Extract the access token from the query parameters
     const accessToken = req.query.access_token;
 
