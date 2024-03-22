@@ -7,8 +7,8 @@ Welcome to the Node.js demo repository for integrating "Sign in with Phone" func
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [Example Demo](#example-demo)
-5. [Website](#website)
-6. [Documentation](#documentation)
+5. [Documentation](#documentation)
+6. [Website](#website)
 
 ## Introduction
 
@@ -26,9 +26,9 @@ To integrate the "Sign in with Phone" functionality into your Node.js project, f
 
 1. **Clone the repository:**
 
-```
+    ```bash
     git clone https://github.com/phoneemail/sign-in-with-phone-nodejs.git
-```
+    ```
 
 
 2. **Navigate to the project directory:**
@@ -45,7 +45,7 @@ To integrate the "Sign in with Phone" functionality into your Node.js project, f
     ```
 
 4. **Change the configuration:**
-Replace `CLIENT_ID` with your client ID and `YOUR_REDIRECT_URL` with your success page URL in the configuration file.
+Replace `CLIENT_ID` with your client ID and `YOUR_REDIRECT_URL` with your success page URL in the `index.js` file.
 
 ## Usage
 
@@ -62,15 +62,17 @@ Open your web browser and go to [http://localhost:3000](http://localhost:3000).
 
 ## Example Demo
 
-Explore a live demo of "Sign in with Phone" in action: [Demo URL](https://www.phone.email/demo-login)
-
-## Website
-
-For more information about our services, visit our website: [www.phone.email](https://www.phone.email)
+Experience the seamless authentication process firsthand with our [demo](https://www.phone.email/demo-login). Our demo provides a live demonstration of the "Sign in with Phone" plugin, showcasing its functionality and ease of use. Explore the demo to understand how the plugin can enhance the authentication experience on your website. 
 
 ## Documentation
 
-Refer to our comprehensive documentation for detailed integration guides: [Node.js Documentation](https://www.phone.email/docs#nodejs)
+For comprehensive documentation on integrating the "Sign in with Phone" plugin into your Node.js application, refer to our [documentation](https://www.phone.email/docs#nodejs). The documentation provides detailed instructions, code samples, and configuration options to help you seamlessly integrate the plugin into your project. 
+
+## Website
+
+Visit our [website](https://www.phone.email) to learn more about our authentication solutions and explore additional features and services. Experience the future of authentication with Phone Email's "Sign in with Phone" plugin.
+By implementing our plugin, you can elevate the security of your website, enhance user experience, and streamline the authentication process for your users. Embrace the power of phone verification with Phone Email's innovative solution.
+
 
 ---
 Developed by [Phone Email](https://www.phone.email)
