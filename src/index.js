@@ -22,7 +22,7 @@ app.get("/", async function (req, res) {
     
     const CLIENT_ID = "YOUR_CLIENT_ID";
     const REDIRECT_URL = req.protocol + "://" + req.get("host") + req.originalUrl;
-    const AUTH_URL = `https://auth.phone.email/log-in?client_id=${CLIENT_ID}&redirect_url=${REDIRECT_URL}`;
+    const AUTH_URL = `https://www.phone.email/auth/log-in?client_id=${CLIENT_ID}&redirect_url=${REDIRECT_URL}`;
 
     // Extract the access token from the query parameters
     const accessToken = req.query.access_token;
