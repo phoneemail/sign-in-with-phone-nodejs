@@ -1,6 +1,8 @@
 // Import necessary modules
 const express = require("express");
 const path = require("path");
+const axios = require('axios');
+
 
 // Create an instance of Express application
 const app = express();
@@ -11,54 +13,49 @@ const port = 3000;
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "public")));
 
+// Use express.json() middleware to parse JSON bodies
+app.use(express.json());
+
 // Set the view engine and views directory
 // app.set("view engine", "pug"); // Set Pug as the template engine
 app.set("view engine", "ejs"); // Set EJS as the template engine
 app.set("views", path.join(__dirname, "views"));
 
+
+
 // Define a route for the home page
 app.get("/", async function (req, res) {
   try {
-    
-    const CLIENT_ID = "YOUR_CLIENT_ID";
-    const REDIRECT_URL = req.protocol + "://" + req.get("host") + req.originalUrl;
-    const AUTH_URL = `https://www.phone.email/auth/log-in?client_id=${CLIENT_ID}&redirect_url=${REDIRECT_URL}`;
-
-    // Extract the access token from the query parameters
-    const accessToken = req.query.access_token;
-
-    // Initialize user details and token flag
-    const userDetails = { countryCode: "", phoneNo: "" };
-    const hasToken = accessToken || false;
-
-    // Prepare data for rendering the view
-    const data = { hasToken, userDetails, authUrl: AUTH_URL };
-
-    // If there's an access token, fetch user details
-    if (hasToken) {
-      const url = "https://eapi.phone.email/getuser";
-
-      // Prepare the payload for the API request
-      const payload = new FormData();
-      payload.append("access_token", accessToken);
-      payload.append("client_id", CLIENT_ID);
-
-      // Make a POST request to the API
-      const response = await fetch(url, { method: "POST", body: payload });
-      const responseData = await response.json();
-
-      // Populate user details with the API response
-      userDetails.countryCode = responseData.country_code;
-      userDetails.phoneNo = responseData.phone_no;
-      userDetails.jwt = responseData.ph_email_jwt;
-    }
-
-    // Render the "index" view with the data
-    res.render("index", data);
+    res.render("index");
   } catch (error) {
     // Handle errors and provide a meaningful response
     console.error(error);
     return res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+
+// Define a route to handle user data
+app.post("/api/saveUser", async (req, res) => {
+  const { user_json_url } = req.body;
+  try {
+    // Fetch the data from the user_json_url
+    const response = await axios.get(user_json_url);
+    const userData = response.data;
+
+    // Extract the required details
+    const user_country_code = userData.user_country_code;
+    const user_phone_number = userData.user_phone_number;
+
+    console.log("User country code:", user_country_code);
+    console.log("User phone number:", user_phone_number);
+
+    // Here you can save the user details to your database or perform any other operation
+    // For now, we just send a success response
+    res.status(200).send({ message: "User data received successfully" });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send({ message: "Failed to fetch user data" });
   }
 });
 

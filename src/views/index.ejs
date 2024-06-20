@@ -1,35 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="msapplication-TileColor" content="#0E0E0E">
-  <meta name="template-color" content="#0E0E0E">
-  <meta name="description" content="Example | NodeJs" />
-  <meta name="author" content="coder-kabir">
-  <meta name="keywords" content="free SMS,OTP,phone email,free sms otp service">
-  <title>Example | Website - Login with Phone | Phone.email</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In with Phone</title>
   <style>
-    .phem-container {
+    .container {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 50px 0;
-    }
-
-    .phem-input {
-      padding: 12px 20px;
-      display: inline-block;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      margin-bottom: 20px;
-    }
-
-    .phem-card {
+      margin: 50px 30px;
       color: #024430 !important;
       text-align: center;
       background-color: #fff;
@@ -39,64 +19,95 @@
       width: 100%;
       max-width: 420px;
       margin: 0 auto;
-      font-family: sans-serif, serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: 'sans-serif', 'serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', 'sans-serif';
       line-height: 28px;
-      display: flex;
       flex-direction: column;
+    }
+    .button {
+      display: flex;
       align-items: center;
       justify-content: center;
+      padding: 14px 20px;
+      background-color: #02BD7E;
+      font-weight: bold;
+      color: #ffffff;
+      border: none;
+      border-radius: 3px;
+      font-size: inherit;
+      cursor: pointer;
+      max-width: 320px;
+      width: 100%;
+    }
+    .hidden {
+      display: none;
     }
   </style>
-</head>
-
-<body style="background-color: #f1f5f9;">
-  <% if (hasToken) { %>
-    <div class="phem-container">
-      <div class="phem-card">
-        <img class="phe-login-img" width="250px"
-          src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phe-signin-success.svg"
-          alt="phone email login demo">
-        <div class="phem-card-body">
-          <h1>Welcome!</h1>
-          <h4 style="line-height:36px;">You are logged in successfully with <br />
-            <%= userDetails.countryCode %>
-              <%= userDetails.phoneNo %>
-          </h4>
-        </div>
-
-        <button
-          style="display: flex; align-items: center; justify-content:center; padding: 14px 20px; background-color: #02BD7E; font-weight: bold; color: #ffffff; border: none; border-radius: 3px; font-size: inherit;cursor:pointer; max-width:320px; width:100%"
-          id="backButton">Back
-        </button>
-      </div>
-    </div>
-    <% } else { %>
-      <div class="phem-container">
-        <div class="phem-card">
-          <img class="phe-login-img" width="250px"
-            src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phe-signin-box.svg"
-            alt="phone email login demo">
-          <h1 style="margin:10px;">Sign In</h1>
-          <p style="color:#a6a6a6;">Welcome to Sign In with Phone </p>
-
-          <button
-            style="display: flex; align-items: center; justify-content:center; padding: 14px 20px; background-color: #02BD7E; font-weight: bold; color: #ffffff; border: none; border-radius: 3px; font-size: inherit;cursor:pointer; max-width:320px; width:100%"
-            id="btn_ph_login" name="btn_ph_login" type="button"
-            onclick="window.open('<%= authUrl %>', 'peLoginWindow', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0, width=500, height=560, top=' + (screen.height - 600) / 2 + ', left=' + (screen.width - 500) / 2);">
-            <img src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phem-phone.svg"
-              alt="phone email" style="margin-right:10px;">
-            Sign In with Phone
-          </button>
-        </div>
-      </div>
-      <% } %>
-</body>
-
-<% if (hasToken) { %>
   <script>
-    const backButton = document.querySelector('#backButton');
-    backButton.onclick = () => { window.location.href = '/'; }
-  </script>
-<% } %>
 
+    async function sendUserDataToServer(user_json_url) {
+        // Create a JSON object
+        const data = {
+            user_json_url: user_json_url
+        };
+
+        try {
+          const response = await fetch('/api/saveUser', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          if (response.ok) {
+            console.log('User data sent successfully');
+          } else {
+            console.error('Failed to send user data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+  
+
+    function loadScript() {
+      // Create a script element
+      const script = document.createElement('script');
+      script.src = 'https://www.phone.email/sign_in_button_v1.js';
+      script.async = true;
+
+      // Append the script to the document body
+      document.body.appendChild(script);
+
+      // Define the phoneEmailListener function
+      window.phoneEmailListener = (userObj) => {
+        const { user_json_url, user_country_code, user_phone_number } = userObj;
+        document.getElementById('signInContainer').classList.add('hidden');
+        document.getElementById('welcomeContainer').classList.remove('hidden');
+        document.getElementById('userDetails').innerText = `${user_country_code} ${user_phone_number}`;
+
+         // Send user data to server
+         sendUserDataToServer(user_json_url);
+      };
+    }
+  </script>
+</head>
+<body onload="loadScript()">
+
+  <div id="signInContainer" class="container">
+    <img class="phe-login-img" width="250px" src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phe-signin-box.svg" alt="phone email login demo">
+    <h1>Sign In</h1>
+    <p style="color: #a6a6a6;">Welcome to Sign In with Phone</p>
+    <div class="pe_signin_button" data-client-id="YOUR_CLIENT_ID"></div>
+  </div>
+
+  <div id="welcomeContainer" class="container hidden">
+    <img class="phe-login-img" width="250px" src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phe-signin-success.svg" alt="phone email login demo">
+    <div class="phem-card-body">
+      <h1>Welcome!</h1>
+      <h4 style="line-height: 36px;">You are logged in successfully with <br><span id="userDetails"></span></h4>
+    </div>
+    <button class="button" onclick="window.location.href = '/'">Back</button>
+  </div>
+
+</body>
 </html>
